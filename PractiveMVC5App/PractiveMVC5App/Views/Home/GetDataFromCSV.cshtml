@@ -1,0 +1,40 @@
+﻿@model PractiveMVC5App.Models.GetDataFromCSVModel
+@{
+    ViewBag.Title = "GetDataFromCSV";
+    var counter = 0;
+}
+
+<table>
+    <tr>
+        <th width="10%" style="font-weight:bold">
+            @Html.DisplayNameFor(x => x.lstDataFromCSV[0].Sno)
+        </th>
+        <th width="10%" style="font-weight:bold">
+            @Html.DisplayNameFor(x => x.lstDataFromCSV[0].Item)
+        </th>
+        <th width="10%" style="font-weight:bold">
+            @Html.DisplayNameFor(x => x.lstDataFromCSV[0].Price)
+        </th>
+        <th width="10%" style="font-weight:bold">
+            @Html.DisplayNameFor(x => x.lstDataFromCSV[0].Quantity)
+        </th>
+    </tr>
+    @foreach (var item in Model.lstDataFromCSV)
+    {
+    <tr>
+        <td width="10%">
+            @Html.LabelFor(x => x.lstDataFromCSV[counter], Convert.ToString(item.Sno))
+        </td>
+        <td width="10%">
+            @Html.LabelFor(x => x.lstDataFromCSV[counter], Convert.ToString(item.Item))
+        </td>
+        <td width="10%">
+            @Html.LabelFor(x => x.lstDataFromCSV[counter], Convert.ToString(item.Price))
+        </td>
+        <td width="10%">
+            @Html.LabelFor(x => x.lstDataFromCSV[counter], Convert.ToString(item.Quantity))
+        </td>
+    </tr>
+        counter++;
+    }
+</table>

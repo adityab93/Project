@@ -1,4 +1,5 @@
-﻿using PractiveMVC5App.Models;
+﻿using PractiveMVC5App.Data_Access;
+using PractiveMVC5App.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,31 @@ namespace PractiveMVC5App.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }        
+        }
 
+        public ActionResult GetDataFromCSV()
+        {
+            GetDataFromCSVModel model = new GetDataFromCSVModel();
+            var dataAccesser = DependencyResolver.Current.GetService<IDataAccesser>();
+            var dataFromCSV = dataAccesser.GetDataFromTable();
+            if (dataFromCSV != null)
+            {
+                MapDataFromEntityToModel(dataFromCSV, model.lstDataFromCSV);
+            }
+            return View(model);
+        }
+
+        private void MapDataFromEntityToModel(List<DataSet> dataFromCSV, List<DataFromCSVModel> lstDataFromCSV)
+        {
+            foreach (var item in dataFromCSV)
+            {
+                DataFromCSVModel dataRow = new DataFromCSVModel();
+                dataRow.Sno = item.Sno;
+                dataRow.Item = item.Item;
+                dataRow.Price = item.Price;
+                dataRow.Quantity = item.Quantity;
+                lstDataFromCSV.Add(dataRow);
+            }
+        }
     }
 }
